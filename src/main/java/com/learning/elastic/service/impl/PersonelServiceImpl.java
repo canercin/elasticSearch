@@ -2,7 +2,7 @@ package com.learning.elastic.service.impl;
 
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
-import com.learning.elastic.search.PersonelEntitySearchRepository;
+import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
 import com.learning.elastic.service.PersonelService;
 import org.springframework.stereotype.Service;
 

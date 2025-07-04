@@ -1,4 +1,4 @@
-package com.learning.elastic.search;
+package com.learning.elastic.search.repo;
 
 import com.learning.elastic.entity.PersonelEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

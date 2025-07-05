@@ -11,6 +11,10 @@ import java.util.List;
 
 public class TermSearchStrategy<T> implements SearchStrategy<T> {
 
+    /*
+    * Term Query, belirlenen alan üzerinde tam eşleşen belgeleri arar.
+    * */
+
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
         String field = request.getParams().get("field").toString();

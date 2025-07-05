@@ -10,6 +10,11 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import java.util.List;
 
 public class MatchQueryStrategy<T> implements SearchStrategy<T> {
+
+    /*
+    * Match Query, belirlenen alan üzerinde kısmı eşleşme araması yapar.
+    * */
+
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
         String field = request.getParams().get("field").toString();

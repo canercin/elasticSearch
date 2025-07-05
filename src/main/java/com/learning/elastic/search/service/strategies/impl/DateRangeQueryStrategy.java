@@ -9,6 +9,11 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import java.util.List;
 
 public class DateRangeQueryStrategy<T> implements SearchStrategy<T> {
+
+    /*
+    * Date Range Query, belirlenen alan üzerinde verilen tarih aralığında belgeleri arar.
+    * */
+
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
         String field = request.getParams().get("field").toString();

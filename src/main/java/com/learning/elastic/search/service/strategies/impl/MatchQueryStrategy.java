@@ -1,6 +1,7 @@
 package com.learning.elastic.search.service.strategies.impl;
 
 import co.elastic.clients.elasticsearch._types.FieldValue;
+import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
 import com.learning.elastic.dto.SearchRequest;
 import com.learning.elastic.search.service.strategies.SearchStrategy;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
@@ -23,7 +24,10 @@ public class MatchQueryStrategy<T> implements SearchStrategy<T> {
 
         Query query = NativeQuery.builder()
                 .withQuery(q ->
-                        q.match(m -> m.field(field).query(fieldValue))
+                        q.match(m -> m
+                                .field(field)
+                                .query(fieldValue)
+                        )
                 ).build();
 
         return getHits(query, operations, entityClass);

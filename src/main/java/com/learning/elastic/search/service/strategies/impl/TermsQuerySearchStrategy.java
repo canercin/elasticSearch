@@ -9,25 +9,24 @@ import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
 
-public class TermSearchStrategy<T> implements SearchStrategy<T> {
-
-    /*
-    * Term Query, belirlenen alan üzerinde tam eşleşen belgeleri arar.
-    * */
+public class TermsQuerySearchStrategy<T> implements SearchStrategy<T> {
 
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
         String field = request.getParams().get("field").toString();
-        Object value = request.getParams().get("value");
-        FieldValue fieldValue = FieldValue.of(value);
+        List<Object> valueList = (List<Object>) request.getParams().get("value");
+        List<FieldValue> fieldValues = valueList.stream().map(FieldValue::of).toList();
 
         Query query = NativeQuery.builder()
                 .withQuery(q ->
-                        q.term(t -> t
+                        q.terms(ts -> ts
                                 .field(field)
-                                .value(fieldValue)
+                                .terms(terms -> terms
+                                        .value(fieldValues)
+                                )
                         )
-                ).build();
+                )
+                .build();
 
         return getHits(query, operations, entityClass);
     }

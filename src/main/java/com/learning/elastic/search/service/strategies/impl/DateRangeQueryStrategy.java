@@ -1,6 +1,6 @@
 package com.learning.elastic.search.service.strategies.impl;
 
-import com.learning.elastic.dto.SearchRequest;
+import com.learning.elastic.search.requests.impl.RangeSearchRequest;
 import com.learning.elastic.search.service.strategies.SearchStrategy;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -8,26 +8,29 @@ import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
 
-public class DateRangeQueryStrategy<T> implements SearchStrategy<T> {
+public class DateRangeQueryStrategy<T, SR extends RangeSearchRequest> implements SearchStrategy<T, SR> {
 
     /*
     * Date Range Query, belirlenen alan üzerinde verilen tarih aralığında belgeleri arar.
     * */
 
     @Override
-    public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
-        String field = request.getParams().get("field").toString();
-        Object fromValue = request.getParams().get("from");
-        Object toValue = request.getParams().get("to");
+    public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {
+        String fieldName = request.getField();
+        String startDate = request.getFrom().toString();
+        String endDate = request.getTo().toString();
 
         Query query = NativeQuery.builder()
-                .withQuery(q -> q.range(
-                        r -> r.date(
-                                d -> d.field(field)
-                                        .gte((String) fromValue)
-                                        .lte((String) toValue)
+                .withQuery(q ->
+                        q.range(r ->
+                                r.date(d ->
+                                        d.field(fieldName)
+                                                .gte(startDate)
+                                                .lte(endDate)
+                                )
                         )
-                )).build();
+                )
+                .build();
 
         return getHits(query, operations, entityClass);
     }

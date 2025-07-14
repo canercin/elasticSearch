@@ -1,20 +1,25 @@
 package com.learning.elastic.search.service.strategies.impl;
 
 import co.elastic.clients.elasticsearch._types.FieldValue;
-import com.learning.elastic.dto.SearchRequest;
+import com.learning.elastic.search.requests.impl.MultipleValueSearchRequest;
 import com.learning.elastic.search.service.strategies.SearchStrategy;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
+import java.util.Set;
 
-public class TermsQuerySearchStrategy<T> implements SearchStrategy<T> {
+public class TermsQuerySearchStrategy<T, SR extends MultipleValueSearchRequest> implements SearchStrategy<T, SR> {
+
+    /*
+    * Terms Query, belirlenen alan üzerinde birden fazla değere sahip belgeleri arar.
+    * */
 
     @Override
-    public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SearchRequest request) {
-        String field = request.getParams().get("field").toString();
-        List<Object> valueList = (List<Object>) request.getParams().get("value");
+    public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {
+        String field = request.getField();
+        Set<Object> valueList = request.getValues();
         List<FieldValue> fieldValues = valueList.stream().map(FieldValue::of).toList();
 
         Query query = NativeQuery.builder()

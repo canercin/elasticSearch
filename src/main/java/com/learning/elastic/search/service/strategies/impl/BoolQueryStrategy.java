@@ -11,6 +11,10 @@ import java.util.List;
 
 public class BoolQueryStrategy<T, SR extends BoolQuerySearchRequest> implements SearchStrategy<T, SR> {
 
+    /**
+     * Bool Query, birden fazla sorguyu birleştirerek karmaşık arama kriterleri oluşturur.
+     * */
+
 
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {

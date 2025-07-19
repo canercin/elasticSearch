@@ -1,6 +1,5 @@
 package com.learning.elastic.search.service.strategies.impl;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
 import com.learning.elastic.search.requests.impl.SingleValueSearchRequest;
 import com.learning.elastic.search.service.strategies.SearchStrategy;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
@@ -9,23 +8,21 @@ import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
 
-public class MatchQueryStrategy<T, SR extends SingleValueSearchRequest> implements SearchStrategy<T, SR> {
+public class MatchAllSearchStrategy<T, SR extends SingleValueSearchRequest> implements SearchStrategy<T, SR> {
 
-    /*
-    * Match Query, belirlenen alan üzerinde kısmı eşleşme araması yapar.
-    * */
+    /**
+     * Match All Query, bütün dokümanları eşleştirir.
+     * */
 
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {
         String field = request.getField();
-        Object value = request.getValue();
-        FieldValue fieldValue = FieldValue.of(value);
+        String value = request.getValue().toString();
 
         Query query = NativeQuery.builder()
                 .withQuery(q -> q
-                        .match(m -> m
-                                .field(field)
-                                .query(fieldValue)
+                        .matchAll(ma -> ma
+                                .queryName(value)
                         )
                 ).build();
 

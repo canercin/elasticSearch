@@ -1,7 +1,6 @@
 package com.learning.elastic.search.service.strategies.impl;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
-import com.learning.elastic.search.requests.impl.SingleValueSearchRequest;
+import com.learning.elastic.search.requests.impl.MultiMatchSearchRequest;
 import com.learning.elastic.search.service.strategies.SearchStrategy;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -9,23 +8,22 @@ import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
 
-public class MatchQueryStrategy<T, SR extends SingleValueSearchRequest> implements SearchStrategy<T, SR> {
+public class MultiMatchSearchStrategy<T, SR extends MultiMatchSearchRequest> implements SearchStrategy<T, SR> {
 
     /*
-    * Match Query, belirlenen alan üzerinde kısmı eşleşme araması yapar.
+    * Multi Match Query, birden fazla alan üzerinde eşleşme araması yapar.
     * */
 
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {
-        String field = request.getField();
-        Object value = request.getValue();
-        FieldValue fieldValue = FieldValue.of(value);
+        List<String> fields = request.getFields();
+        String value = request.getValue();
 
         Query query = NativeQuery.builder()
                 .withQuery(q -> q
-                        .match(m -> m
-                                .field(field)
-                                .query(fieldValue)
+                        .multiMatch(mm -> mm
+                                .fields(fields)
+                                .query(value)
                         )
                 ).build();
 

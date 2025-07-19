@@ -4,13 +4,12 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
 import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
-import com.learning.elastic.search.requests.QueryGenerator;
-import com.learning.elastic.search.requests.SearchRequest;
 import com.learning.elastic.search.requests.impl.*;
 import com.learning.elastic.search.service.context.SearchContext;
 import com.learning.elastic.search.service.enums.SearchType;
 import com.learning.elastic.service.extended.PersonelExtendedService;
 import com.learning.elastic.service.impl.PersonelServiceImpl;
+import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
 
@@ -63,13 +62,40 @@ public class PersonelExtendedServiceImpl extends PersonelServiceImpl implements 
     }
 
     @Override
-    public List<PersonelEntity> boolQuery(List<SearchRequest> searchRequestList) {
+    public List<PersonelEntity> boolQuery() {
         BoolQuerySearchRequest boolQuerySearchRequest = new BoolQuerySearchRequest();
-        createQueries(boolQuerySearchRequest, searchRequestList);
+
+        createMustQuery(boolQuerySearchRequest);
+        createShouldQuery(boolQuerySearchRequest);
+
         return searchContext.search(SearchType.BOOL_QUERY, elasticsearchOperations, PersonelEntity.class, boolQuerySearchRequest);
     }
 
-    private void createQueries(BoolQuerySearchRequest boolQuerySearchRequest, List<SearchRequest> searchRequestList) {
+    private void createShouldQuery(BoolQuerySearchRequest boolQuerySearchRequest) {
+        Query sampleQuery = NativeQuery.builder()
+                .withQuery(q -> q
+                        .match(m -> m
+                                .field("name")
+                                .query("sample1")
+                        )
+                )
+                .build()
+                .getQuery();
 
+        boolQuerySearchRequest.addQuery("should", List.of(sampleQuery));
+    }
+
+    private void createMustQuery(BoolQuerySearchRequest boolQuerySearchRequest) {
+        Query sampleQuery = NativeQuery.builder()
+                .withQuery(q -> q
+                                .term(t -> t
+                                        .field("email")
+                                        .value("sample1@samplemail.com")
+                                )
+                )
+                .build()
+                .getQuery();
+
+        boolQuerySearchRequest.addQuery("must", List.of(sampleQuery));
     }
 }

@@ -1,7 +1,6 @@
 package com.learning.elastic.search.service.strategies;
 
 
-import com.learning.elastic.search.requests.SearchRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;

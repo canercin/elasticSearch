@@ -29,11 +29,6 @@ public class PersonelController {
         return HttpStatus.CREATED;
     }
 
-    @PostMapping("/bool-filter")
-    public List<PersonelEntity> boolFilter(@RequestBody List<SearchRequest> searchRequestList) {
-        return personelExtendedService.boolQuery(searchRequestList);
-    }
-
     @PostMapping
     public PersonelEntity save(@RequestBody PersonelEntity personelEntity) {
         return personelExtendedService.save(personelEntity);

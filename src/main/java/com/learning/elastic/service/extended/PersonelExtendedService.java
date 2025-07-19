@@ -22,5 +22,5 @@ public interface PersonelExtendedService extends PersonelService {
 
     List<PersonelEntity> dateRange(RangeSearchRequest rangeSearchRequest);
 
-    List<PersonelEntity> boolQuery(List<SearchRequest> searchRequestList);
+    List<PersonelEntity> boolQuery();
 }

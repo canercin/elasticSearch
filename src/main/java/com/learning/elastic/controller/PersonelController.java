@@ -2,6 +2,7 @@ package com.learning.elastic.controller;
 
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.service.PersonelService;
+import com.learning.elastic.service.extended.PersonelExtendedService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,16 +13,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/personel")
 public class PersonelController {
-    private final PersonelService personelService;
+    private final PersonelExtendedService personelExtendedService;
 
-    public PersonelController(PersonelService personelService) {
-        this.personelService = personelService;
+    public PersonelController(PersonelExtendedService personelExtendedService) {
+        this.personelExtendedService = personelExtendedService;
     }
 
     @PostMapping("/batch")
     public HttpStatus saveBatch(@RequestBody List<PersonelEntity> personelEntityList) {
         for (PersonelEntity personelEntity : personelEntityList) {
-            personelService.save(personelEntity);
+            personelExtendedService.save(personelEntity);
         }
 
         return HttpStatus.CREATED;
@@ -29,26 +30,26 @@ public class PersonelController {
 
     @PostMapping
     public PersonelEntity save(@RequestBody PersonelEntity personelEntity) {
-        return personelService.save(personelEntity);
+        return personelExtendedService.save(personelEntity);
     }
 
     @PutMapping
     public PersonelEntity update(@RequestBody PersonelEntity personelEntity) {
-        return personelService.update(personelEntity);
+        return personelExtendedService.update(personelEntity);
     }
 
     @GetMapping
     public Iterable<PersonelEntity> findAll() {
-        return personelService.findAll();
+        return personelExtendedService.findAll();
     }
 
     @GetMapping("/{id}")
     public PersonelEntity findById(@PathVariable UUID id) {
-        return personelService.findById(id);
+        return personelExtendedService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable UUID id) {
-        personelService.deleteById(id);
+        personelExtendedService.deleteById(id);
     }
 }

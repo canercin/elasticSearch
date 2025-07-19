@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
+@Service("personelService")
 public class PersonelServiceImpl implements PersonelService {
 
     protected final PersonelEntityRepository personelEntityRepository;

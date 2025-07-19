@@ -1,8 +1,10 @@
 package com.learning.elastic.service.extended.impl;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
 import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
+import com.learning.elastic.search.requests.QueryGenerator;
 import com.learning.elastic.search.requests.impl.*;
 import com.learning.elastic.search.service.context.SearchContext;
 import com.learning.elastic.search.service.enums.SearchType;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("personelExtendedService")
 public class PersonelExtendedServiceImpl extends PersonelServiceImpl implements PersonelExtendedService {
 
     public PersonelExtendedServiceImpl(PersonelEntityRepository personelEntityRepository,
@@ -61,6 +63,15 @@ public class PersonelExtendedServiceImpl extends PersonelServiceImpl implements 
 
     @Override
     public List<PersonelEntity> boolQuery(BoolQuerySearchRequest boolQuerySearchRequest) {
+        boolQuerySearchRequest.addQuery("must", createQueries());
         return searchContext.search(SearchType.BOOL_QUERY, elasticsearchOperations, PersonelEntity.class, boolQuerySearchRequest);
+    }
+
+    private List<Query> createQueries() {
+        SingleValueSearchRequest singleValueSearchRequest = new SingleValueSearchRequest();
+        singleValueSearchRequest.setField("name");
+        singleValueSearchRequest.setValue("sample1@samplemail.com");
+        Query sampleQuery1 = QueryGenerator.generateQuery(SearchType.MATCH, singleValueSearchRequest);
+        return List.of(sampleQuery1);
     }
 }

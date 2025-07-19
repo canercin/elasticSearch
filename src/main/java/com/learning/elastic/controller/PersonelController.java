@@ -1,6 +1,7 @@
 package com.learning.elastic.controller;
 
 import com.learning.elastic.entity.PersonelEntity;
+import com.learning.elastic.search.requests.SearchRequest;
 import com.learning.elastic.service.PersonelService;
 import com.learning.elastic.service.extended.PersonelExtendedService;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,11 @@ public class PersonelController {
         }
 
         return HttpStatus.CREATED;
+    }
+
+    @PostMapping("/bool-filter")
+    public List<PersonelEntity> boolFilter(@RequestBody List<SearchRequest> searchRequestList) {
+        return personelExtendedService.boolQuery(searchRequestList);
     }
 
     @PostMapping

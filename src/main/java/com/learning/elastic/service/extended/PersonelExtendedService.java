@@ -1,6 +1,7 @@
 package com.learning.elastic.service.extended;
 
 import com.learning.elastic.entity.PersonelEntity;
+import com.learning.elastic.search.requests.SearchRequest;
 import com.learning.elastic.search.requests.impl.*;
 import com.learning.elastic.service.PersonelService;
 
@@ -21,5 +22,5 @@ public interface PersonelExtendedService extends PersonelService {
 
     List<PersonelEntity> dateRange(RangeSearchRequest rangeSearchRequest);
 
-    List<PersonelEntity> boolQuery(BoolQuerySearchRequest boolQuerySearchRequest);
+    List<PersonelEntity> boolQuery(List<SearchRequest> searchRequestList);
 }

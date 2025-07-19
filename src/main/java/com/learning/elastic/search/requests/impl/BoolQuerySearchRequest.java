@@ -31,4 +31,11 @@ public class BoolQuerySearchRequest implements SearchRequest {
     public List<Query> getQueriesByType(String type) {
         return queries.get(type);
     }
+
+    /**
+     * @param type can be "must", "should", "must_not", or "filter"
+     * */
+    public void addQuery(String type, List<Query> queries) {
+        getQueriesByType(type).addAll(queries);
+    }
 }

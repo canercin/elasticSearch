@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.Query;
 
+import java.time.Instant;
 import java.util.List;
 
 public class MatchAllSearchStrategy<T, SR extends SingleValueSearchRequest> implements SearchStrategy<T, SR> {
@@ -16,13 +17,13 @@ public class MatchAllSearchStrategy<T, SR extends SingleValueSearchRequest> impl
 
     @Override
     public List<T> search(ElasticsearchOperations operations, Class<T> entityClass, SR request) {
-        String field = request.getField();
-        String value = request.getValue().toString();
 
         Query query = NativeQuery.builder()
                 .withQuery(q -> q
                         .matchAll(ma -> ma
-                                .queryName(value)
+                                .queryName(String.format("matchAllQuery-%s-%s",
+                                        entityClass.getName(), Instant.now())
+                                )
                         )
                 ).build();
 

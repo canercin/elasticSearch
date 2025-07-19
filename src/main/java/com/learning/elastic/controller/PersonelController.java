@@ -2,8 +2,11 @@ package com.learning.elastic.controller;
 
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.service.PersonelService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -13,6 +16,15 @@ public class PersonelController {
 
     public PersonelController(PersonelService personelService) {
         this.personelService = personelService;
+    }
+
+    @PostMapping("/batch")
+    public HttpStatus saveBatch(@RequestBody List<PersonelEntity> personelEntityList) {
+        for (PersonelEntity personelEntity : personelEntityList) {
+            personelService.save(personelEntity);
+        }
+
+        return HttpStatus.CREATED;
     }
 
     @PostMapping

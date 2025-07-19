@@ -2,6 +2,7 @@ package com.learning.elastic.service;
 
 import com.learning.elastic.entity.PersonelEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface PersonelService {

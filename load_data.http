@@ -1,0 +1,65 @@
+POST http://localhost:8080/api/personel/batch
+Content-Type: application/json
+
+[
+  {
+    "firstName": "sample1",
+    "lastName": "sample1",
+    "email": "sample1@samplemail.com",
+    "salary": 110000.50
+  },
+  {
+    "firstName": "sample2",
+    "lastName": "sample2",
+    "email": "sample2@samplemail.com",
+    "salary": 120000.00
+  },
+  {
+    "firstName": "sample3",
+    "lastName": "sample3",
+    "email": "sample3@samplemail.com",
+    "salary": 130000.25
+  },
+  {
+    "firstName": "sample4",
+    "lastName": "sample4",
+    "email": "sample4@samplemail.com",
+    "salary": 140000.00
+  },
+  {
+    "firstName": "sample5",
+    "lastName": "sample5",
+    "email": "sample5@samplemail.com",
+    "salary": 90000.75
+  },
+  {
+    "firstName": "sample6",
+    "lastName": "sample6",
+    "email": "sample6@samplemail.com",
+    "salary": 100000.00
+  },
+  {
+    "firstName": "sample7",
+    "lastName": "sample7",
+    "email": "sample7@samplemail.com",
+    "salary": 110000.50
+  },
+  {
+    "firstName": "sample8",
+    "lastName": "sample8",
+    "email": "sample8@samplemail.com",
+    "salary": 120000.00
+  },
+  {
+    "firstName": "sample9",
+    "lastName": "sample9",
+    "email": "sample9@samplemail.com",
+    "salary": 130000.25
+  },
+  {
+    "firstName": "sample10",
+    "lastName": "sample10",
+    "email": "sample10@samplemail.com",
+    "salary": 140000.00
+  }
+]

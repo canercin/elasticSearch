@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity(name = "personel")
-@Document(indexName = "personel", createIndex = true)
+@Document(indexName = "personel")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,15 +22,20 @@ public class PersonelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false, updatable = false)
+    @Field(type =  FieldType.Keyword)
     private UUID id;
 
     @Column(nullable = false)
+    @Field(type = FieldType.Text)
     private String firstName;
 
     @Column(nullable = false)
+    @Field(type = FieldType.Text)
     private String lastName;
 
     @Column(unique = true, nullable = false)
+    @Field(type = FieldType.Keyword)
     private String email;
 
     @Column(nullable = false)

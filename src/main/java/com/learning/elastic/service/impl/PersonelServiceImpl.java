@@ -3,7 +3,9 @@ package com.learning.elastic.service.impl;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
 import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
+import com.learning.elastic.search.service.context.SearchContext;
 import com.learning.elastic.service.PersonelService;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -11,13 +13,17 @@ import java.util.UUID;
 @Service
 public class PersonelServiceImpl implements PersonelService {
 
-    private final PersonelEntityRepository personelEntityRepository;
-    private final PersonelEntitySearchRepository personelEntitySearchRepository;
+    protected final PersonelEntityRepository personelEntityRepository;
+    protected final PersonelEntitySearchRepository personelEntitySearchRepository;
+    protected final SearchContext<PersonelEntity> searchContext;
+    protected final ElasticsearchOperations elasticsearchOperations;
 
     public PersonelServiceImpl(PersonelEntityRepository personelEntityRepository,
-                               PersonelEntitySearchRepository personelEntitySearchRepository) {
+                               PersonelEntitySearchRepository personelEntitySearchRepository, SearchContext<PersonelEntity> searchContext, ElasticsearchOperations elasticsearchOperations) {
         this.personelEntityRepository = personelEntityRepository;
         this.personelEntitySearchRepository = personelEntitySearchRepository;
+        this.searchContext = searchContext;
+        this.elasticsearchOperations = elasticsearchOperations;
     }
 
 

@@ -1,8 +1,10 @@
 package com.learning.elastic.service.extended;
 
+import com.fastsearch.fast_search.api.requests.impl.MultiMatchSearchRequest;
+import com.fastsearch.fast_search.api.requests.impl.MultipleValueSearchRequest;
+import com.fastsearch.fast_search.api.requests.impl.RangeSearchRequest;
+import com.fastsearch.fast_search.api.requests.impl.SingleValueSearchRequest;
 import com.learning.elastic.entity.PersonelEntity;
-import com.learning.elastic.search.requests.SearchRequest;
-import com.learning.elastic.search.requests.impl.*;
 import com.learning.elastic.service.PersonelService;
 
 import java.util.List;

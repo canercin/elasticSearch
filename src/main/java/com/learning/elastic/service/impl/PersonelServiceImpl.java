@@ -1,9 +1,10 @@
 package com.learning.elastic.service.impl;
 
+import com.fastsearch.fast_search.api.context.SearchContext;
+import com.learning.elastic.config.SearchContextFactory;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
 import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
-import com.learning.elastic.search.service.context.SearchContext;
 import com.learning.elastic.service.PersonelService;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,12 @@ public class PersonelServiceImpl implements PersonelService {
     protected final ElasticsearchOperations elasticsearchOperations;
 
     public PersonelServiceImpl(PersonelEntityRepository personelEntityRepository,
-                               PersonelEntitySearchRepository personelEntitySearchRepository, SearchContext<PersonelEntity> searchContext, ElasticsearchOperations elasticsearchOperations) {
+                               PersonelEntitySearchRepository personelEntitySearchRepository,
+                               SearchContextFactory searchContextFactory,
+                               ElasticsearchOperations elasticsearchOperations) {
         this.personelEntityRepository = personelEntityRepository;
         this.personelEntitySearchRepository = personelEntitySearchRepository;
-        this.searchContext = searchContext;
+        this.searchContext = searchContextFactory.create(PersonelEntity.class);
         this.elasticsearchOperations = elasticsearchOperations;
     }
 

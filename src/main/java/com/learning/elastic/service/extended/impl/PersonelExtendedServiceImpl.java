@@ -1,12 +1,12 @@
 package com.learning.elastic.service.extended.impl;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import com.fastsearch.fast_search.api.requests.impl.*;
+import com.fastsearch.fast_search.api.type.SearchType;
+import com.learning.elastic.config.SearchContextFactory;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
 import com.learning.elastic.search.repo.PersonelEntitySearchRepository;
-import com.learning.elastic.search.requests.impl.*;
-import com.learning.elastic.search.service.context.SearchContext;
-import com.learning.elastic.search.service.enums.SearchType;
 import com.learning.elastic.service.extended.PersonelExtendedService;
 import com.learning.elastic.service.impl.PersonelServiceImpl;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
@@ -20,9 +20,9 @@ public class PersonelExtendedServiceImpl extends PersonelServiceImpl implements 
 
     public PersonelExtendedServiceImpl(PersonelEntityRepository personelEntityRepository,
                                        PersonelEntitySearchRepository personelEntitySearchRepository,
-                                       SearchContext<PersonelEntity> searchContext,
+                                       SearchContextFactory searchContextFactory,
                                        ElasticsearchOperations elasticsearchOperations) {
-        super(personelEntityRepository, personelEntitySearchRepository, searchContext, elasticsearchOperations);
+        super(personelEntityRepository, personelEntitySearchRepository, searchContextFactory, elasticsearchOperations);
     }
 
 
@@ -75,7 +75,7 @@ public class PersonelExtendedServiceImpl extends PersonelServiceImpl implements 
         Query sampleQuery = NativeQuery.builder()
                 .withQuery(q -> q
                         .match(m -> m
-                                .field("name")
+                                .field("firstName")
                                 .query("sample1")
                         )
                 )

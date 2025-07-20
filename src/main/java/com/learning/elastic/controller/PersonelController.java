@@ -1,13 +1,10 @@
 package com.learning.elastic.controller;
 
 import com.learning.elastic.entity.PersonelEntity;
-import com.learning.elastic.search.requests.SearchRequest;
-import com.learning.elastic.service.PersonelService;
 import com.learning.elastic.service.extended.PersonelExtendedService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.UUID;
 

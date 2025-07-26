@@ -1,8 +1,8 @@
 package com.learning.elastic.service.extended.impl;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.fastsearch.fast_search.api.requests.impl.*;
-import com.fastsearch.fast_search.api.type.SearchType;
+import dev.canercin.fastsearch.api.requests.impl.*;
+import dev.canercin.fastsearch.api.type.SearchType;
 import com.learning.elastic.config.SearchContextFactory;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;

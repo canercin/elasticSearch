@@ -1,6 +1,6 @@
 package com.learning.elastic.config;
 
-import com.fastsearch.fast_search.api.context.SearchContext;
+import dev.canercin.fastsearch.api.context.SearchContext;
 import org.springframework.stereotype.Component;
 
 @Component

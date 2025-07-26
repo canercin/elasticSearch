@@ -1,6 +1,6 @@
 package com.learning.elastic.service.impl;
 
-import com.fastsearch.fast_search.api.context.SearchContext;
+import dev.canercin.fastsearch.api.context.SearchContext;
 import com.learning.elastic.config.SearchContextFactory;
 import com.learning.elastic.entity.PersonelEntity;
 import com.learning.elastic.repository.PersonelEntityRepository;
